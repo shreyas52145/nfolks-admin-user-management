@@ -1,11 +1,82 @@
-function App() {
-  return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <h1 className="text-2xl font-semibold text-gray-800">
-        NFolks Admin — scaffolding complete
-      </h1>
-    </div>
-  )
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from './auth/AuthContext';
+import ProtectedRoute from './auth/ProtectedRoute';
+import AdminRoute from './auth/AdminRoute';
+import GuestRoute from './auth/GuestRoute';
+import Layout from './components/Layout';
+import SignInPage from './features/sign-in/SignInPage';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+function PlaceholderPage({ title }: { title: string }) {
+  return <h2 className="text-xl font-semibold text-gray-800">{title}</h2>;
 }
 
-export default App
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route
+              path="/signin"
+              element={
+                <GuestRoute>
+                  <SignInPage />
+                </GuestRoute>
+              }
+            />
+
+            <Route
+              path="/invite"
+              element={<PlaceholderPage title="Accept Invitation" />}
+            />
+
+            <Route
+              element={
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="/profile" replace />} />
+
+              <Route
+                path="users"
+                element={
+                  <AdminRoute>
+                    <PlaceholderPage title="User Management" />
+                  </AdminRoute>
+                }
+              />
+
+              <Route
+                path="invitations"
+                element={
+                  <AdminRoute>
+                    <PlaceholderPage title="Invitations" />
+                  </AdminRoute>
+                }
+              />
+
+              <Route path="profile" element={<PlaceholderPage title="My Profile" />} />
+              <Route path="change-password" element={<PlaceholderPage title="Change Password" />} />
+            </Route>
+
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+}
+
+export default App;
