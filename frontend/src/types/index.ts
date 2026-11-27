@@ -15,6 +15,7 @@ export interface Invitation {
   id: string;
   email: string;
   role: Role;
+  token: string;
   expires_at: string;
 }
 

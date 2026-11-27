@@ -3,7 +3,7 @@
 ## Mock Backend
 
 - **No persistent storage**: Data is kept in memory. Restarting the server resets everything to seed data.
-- **No real email**: Invitation links are logged to the server console. The frontend invitations page has a copy-link button.
+- **No real email**: Invitation tokens are returned to admins so the UI can copy invite links. There is no outbound email.
 - **No password hashing**: Passwords are stored as plain text in the mock. A real backend would use bcrypt or argon2.
 - **Single-process**: The mock server runs in one Node.js process. No horizontal scaling or clustering.
 

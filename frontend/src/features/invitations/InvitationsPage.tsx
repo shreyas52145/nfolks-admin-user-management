@@ -37,7 +37,7 @@ export default function InvitationsPage() {
     setInviteSuccess(null);
     try {
       await createInvitation.mutateAsync(data);
-      setInviteSuccess(`Invitation sent to ${data.email}. Check the server console for the invite link.`);
+      setInviteSuccess(`Invitation sent to ${data.email}. Use the copy button to get the invite link.`);
       reset();
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -49,10 +49,10 @@ export default function InvitationsPage() {
     }
   }
 
-  function copyInviteLink(invitationId: string) {
-    const link = `${window.location.origin}/invite?token=${invitationId}`;
+  function copyInviteLink(token: string) {
+    const link = `${window.location.origin}/invite?token=${token}`;
     navigator.clipboard.writeText(link).then(() => {
-      setCopiedId(invitationId);
+      setCopiedId(token);
       setTimeout(() => setCopiedId(null), 2000);
     });
   }
@@ -153,10 +153,10 @@ export default function InvitationsPage() {
                       <div className="flex justify-end gap-1">
                         <button
                           title="Copy invite link"
-                          onClick={() => copyInviteLink(inv.id)}
+                          onClick={() => copyInviteLink(inv.token)}
                           className="p-1.5 text-gray-400 hover:text-blue-600 rounded hover:bg-blue-50"
                         >
-                          {copiedId === inv.id ? (
+                          {copiedId === inv.token ? (
                             <Check className="w-4 h-4 text-green-600" />
                           ) : (
                             <Copy className="w-4 h-4" />
