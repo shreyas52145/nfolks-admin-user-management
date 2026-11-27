@@ -24,10 +24,12 @@ Vitest, React Testing Library
 ## Key Conventions
 
 ### Architecture
-- Feature-based folder structure under `src/features/`
+- App shell in `src/app/` — providers, routes, layout (separated concerns)
+- Feature modules under `src/features/` with barrel `index.ts` exports
 - Shared types in `src/types/`
+- Reusable UI components in `src/shared/components/`
 - API layer in `src/api/` — thin typed functions, no logic in components
-- Auth logic in `src/auth/` — context, token manager, route guards
+- Auth kernel in `src/auth/` — context, token manager, route guards
 
 ### State Management
 - React Context for auth state only — no Redux or Zustand

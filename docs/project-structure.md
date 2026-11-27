@@ -18,47 +18,52 @@ nfolks-admin-user-management/
 ```
 src/
 ├── main.tsx                        # Entry point, renders App
-├── App.tsx                         # Root component, router setup
 ├── index.css                       # Tailwind CSS import
 ├── test-setup.ts                   # Vitest setup (jest-dom matchers)
 │
+├── app/                            # Application shell and wiring
+│   ├── App.tsx                     # Slim root: Providers + AppRoutes
+│   ├── providers.tsx               # QueryClient, BrowserRouter, AuthProvider
+│   ├── routes.tsx                  # All route definitions
+│   └── Layout.tsx                  # Sidebar, navigation, Outlet
+│
 ├── api/                            # API communication layer
 │   ├── client.ts                   # Axios instance + interceptors
-│   ├── auth.ts                     # signIn, signOut, refresh API calls
-│   ├── users.ts                    # User CRUD API calls
+│   ├── auth.ts                     # signIn, signOut, fetchCurrentUser
+│   ├── users.ts                    # User CRUD + profile API calls
 │   └── invitations.ts              # Invitation API calls
 │
-├── auth/                           # Authentication system
+├── auth/                           # Shared authentication kernel
 │   ├── AuthContext.tsx              # React Context for auth state
 │   ├── token-manager.ts            # Token storage, decode, refresh
 │   ├── ProtectedRoute.tsx          # Requires authenticated user
 │   ├── AdminRoute.tsx              # Requires admin role
-│   └── GuestRoute.tsx              # Redirects if already signed in
+│   ├── GuestRoute.tsx              # Redirects if already signed in
+│   └── __tests__/                  # Auth unit tests
+│       ├── token-manager.test.ts
+│       └── AuthContext.test.tsx
 │
-├── features/                       # Feature-based pages
+├── features/                       # Feature modules (barrel-exported)
 │   ├── sign-in/
-│   │   └── SignInPage.tsx
-│   ├── users/                      # Admin user management
+│   │   ├── SignInPage.tsx
+│   │   └── index.ts
+│   ├── users/
 │   │   ├── UserListPage.tsx
-│   │   ├── UserTable.tsx
 │   │   ├── EditUserDialog.tsx
-│   │   └── hooks.ts
+│   │   ├── hooks.ts
+│   │   └── index.ts
 │   ├── profile/
 │   │   ├── ProfilePage.tsx
-│   │   └── ChangePasswordPage.tsx
+│   │   ├── ChangePasswordPage.tsx
+│   │   └── index.ts
 │   └── invitations/
-│       ├── InviteUserPage.tsx
-│       ├── PendingInvitationsPage.tsx
+│       ├── InvitationsPage.tsx
 │       ├── AcceptInvitationPage.tsx
-│       └── hooks.ts
+│       ├── hooks.ts
+│       └── index.ts
 │
-├── components/                     # Shared UI components
-│   ├── Layout.tsx
-│   ├── Spinner.tsx
-│   ├── ErrorMessage.tsx
-│   ├── Pagination.tsx
-│   ├── StatusBadge.tsx
-│   └── DevPanel.tsx
+├── shared/components/              # Reusable UI components
+│   └── Spinner.tsx
 │
 └── types/
     └── index.ts                    # All TypeScript types and interfaces
@@ -66,10 +71,11 @@ src/
 
 ### Where to Add New Features
 
-- New pages → `src/features/<feature-name>/`
-- New shared components → `src/components/`
+- New pages → `src/features/<feature-name>/` with an `index.ts` barrel export
+- New shared components → `src/shared/components/`
 - New API endpoints → `src/api/<domain>.ts`
 - New types → `src/types/index.ts`
+- App-level wiring (providers, routes) → `src/app/`
 
 ## Mock Server (`mock-server/src/`)
 

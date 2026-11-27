@@ -65,20 +65,21 @@ The frontend runs at **http://localhost:5173** and the mock API at **http://loca
 
 ```
 nfolks-admin-user-management/
-├── frontend/          # React SPA
+├── frontend/              # React SPA
 │   └── src/
-│       ├── api/       # Typed API client and endpoint functions
-│       ├── auth/      # AuthContext, token manager, route guards
-│       ├── features/  # Feature-based pages and components
-│       ├── components/# Shared UI components
-│       └── types/     # TypeScript type definitions
-├── mock-server/       # Express mock API
+│       ├── app/           # App shell: providers, routes, layout
+│       ├── api/           # Typed API client and endpoint functions
+│       ├── auth/          # AuthContext, token manager, route guards
+│       ├── features/      # Feature modules with barrel exports
+│       ├── shared/        # Reusable UI components (Spinner, etc.)
+│       └── types/         # TypeScript type definitions
+├── mock-server/           # Express mock API
 │   └── src/
-│       ├── routes/    # API route handlers
-│       ├── services/  # Business logic
-│       ├── middleware/ # Auth, admin, delay middleware
-│       └── data/      # Seed data
-└── docs/              # Detailed technical documentation
+│       ├── routes/        # API route handlers
+│       ├── services/      # Business logic
+│       ├── middleware/     # Auth, admin, delay middleware
+│       └── data/          # Seed data
+└── docs/                  # Detailed technical documentation
 ```
 
 ## Token and Role Handling Design

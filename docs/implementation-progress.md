@@ -58,3 +58,12 @@
 
 ## Stage 10: Final Review
 **Status**: Complete
+
+## Post-Review: Frontend Refactor
+**Status**: Complete
+- Split App.tsx into app/App.tsx, app/providers.tsx, app/routes.tsx
+- Moved Layout from components/ to app/ (app shell, not reusable component)
+- Extracted shared Spinner component to shared/components/
+- Added barrel index.ts exports to all feature modules
+- Updated route guards to use shared Spinner
+- Removed empty components/ directory

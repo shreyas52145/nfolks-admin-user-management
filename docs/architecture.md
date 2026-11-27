@@ -42,24 +42,31 @@ The assignment requires that changes made by an admin are visible to other users
 ```mermaid
 graph TD
     subgraph "React Application"
-        Router[React Router]
-        Auth[AuthContext + TokenManager]
-        API[Axios Client + Interceptors]
-        
-        subgraph Features
-            SignIn[Sign In]
-            Users[User Management]
-            Profile[Profile]
-            Invitations[Invitations]
+        subgraph "app/"
+            Providers[Providers<br/>QueryClient + Router + Auth]
+            Routes[AppRoutes]
+            Layout[Layout<br/>Sidebar + Outlet]
         end
         
-        subgraph Shared
-            Components[UI Components]
+        Auth[auth/<br/>AuthContext + TokenManager + Guards]
+        API[api/<br/>Axios Client + Interceptors]
+        
+        subgraph "features/"
+            SignIn[sign-in]
+            Users[users]
+            Profile[profile]
+            Invitations[invitations]
+        end
+        
+        subgraph "shared/"
+            Components[Spinner, ...]
             Types[TypeScript Types]
         end
     end
 
-    Router --> Auth
+    Providers --> Routes
+    Routes --> Auth
+    Routes --> Layout
     Auth --> API
     Features --> API
     Features --> Auth

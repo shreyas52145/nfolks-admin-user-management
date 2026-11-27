@@ -40,4 +40,10 @@
 
 **Tradeoff**: Additional dependency (~15KB). Worth it for the interceptor architecture.
 
-_More decisions will be documented as implementation progresses._
+## Feature-Based Structure with app/ Shell
+
+**Decision**: Separate `app/` layer for providers, routes, and layout. Feature modules export via barrel `index.ts`.
+
+**Why**: The original `App.tsx` mixed provider wiring, route definitions, and QueryClient creation in one file. Splitting into `app/providers.tsx`, `app/routes.tsx`, and `app/App.tsx` gives each concern its own file. Layout moved from `components/` to `app/` because it's the app shell (sidebar + outlet), not a reusable component. Barrel exports let routes.tsx import `{ UserListPage } from '../features/users'` instead of deep paths.
+
+**Tradeoff**: More files in `app/`, but each is small and single-purpose. Feature files remain untouched — the refactor only changed wiring and shared infrastructure.
