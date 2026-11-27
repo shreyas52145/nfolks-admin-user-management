@@ -9,6 +9,7 @@ function toPublicInvitation(inv: StoredInvitation): Invitation {
     id: inv.id,
     email: inv.email,
     role: inv.role,
+    token: inv.token,
     expires_at: inv.expires_at,
   };
 }
