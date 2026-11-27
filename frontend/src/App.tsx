@@ -7,6 +7,8 @@ import GuestRoute from './auth/GuestRoute';
 import Layout from './components/Layout';
 import SignInPage from './features/sign-in/SignInPage';
 import UserListPage from './features/users/UserListPage';
+import ProfilePage from './features/profile/ProfilePage';
+import ChangePasswordPage from './features/profile/ChangePasswordPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,8 +70,8 @@ function App() {
                 }
               />
 
-              <Route path="profile" element={<PlaceholderPage title="My Profile" />} />
-              <Route path="change-password" element={<PlaceholderPage title="Change Password" />} />
+              <Route path="profile" element={<ProfilePage />} />
+              <Route path="change-password" element={<ChangePasswordPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" replace />} />
