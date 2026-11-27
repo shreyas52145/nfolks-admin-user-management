@@ -9,6 +9,8 @@ import SignInPage from './features/sign-in/SignInPage';
 import UserListPage from './features/users/UserListPage';
 import ProfilePage from './features/profile/ProfilePage';
 import ChangePasswordPage from './features/profile/ChangePasswordPage';
+import InvitationsPage from './features/invitations/InvitationsPage';
+import AcceptInvitationPage from './features/invitations/AcceptInvitationPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,10 +20,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-function PlaceholderPage({ title }: { title: string }) {
-  return <h2 className="text-xl font-semibold text-gray-800">{title}</h2>;
-}
 
 function App() {
   return (
@@ -40,7 +38,7 @@ function App() {
 
             <Route
               path="/invite"
-              element={<PlaceholderPage title="Accept Invitation" />}
+              element={<AcceptInvitationPage />}
             />
 
             <Route
@@ -65,7 +63,7 @@ function App() {
                 path="invitations"
                 element={
                   <AdminRoute>
-                    <PlaceholderPage title="Invitations" />
+                    <InvitationsPage />
                   </AdminRoute>
                 }
               />
