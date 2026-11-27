@@ -6,6 +6,7 @@ import AdminRoute from './auth/AdminRoute';
 import GuestRoute from './auth/GuestRoute';
 import Layout from './components/Layout';
 import SignInPage from './features/sign-in/SignInPage';
+import UserListPage from './features/users/UserListPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,7 +54,7 @@ function App() {
                 path="users"
                 element={
                   <AdminRoute>
-                    <PlaceholderPage title="User Management" />
+                    <UserListPage />
                   </AdminRoute>
                 }
               />
